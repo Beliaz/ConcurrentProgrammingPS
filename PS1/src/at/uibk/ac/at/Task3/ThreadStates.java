@@ -148,7 +148,7 @@ public class ThreadStates implements Runnable
 
         mgr.startMonitoring();
 
-        for(int i = 0; i < 5; i++)
+        for(int i = 0; i < 1; i++)
         {
             mgr.SpwanThread();
             Thread.sleep(3100);
