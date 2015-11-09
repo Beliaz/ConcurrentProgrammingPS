@@ -13,6 +13,7 @@ class ThreadPool
 
     public ThreadPool(int size)
     {
+        if(size <= 0) throw new IllegalArgumentException();
         this.threads = new Thread[size];
     }
 

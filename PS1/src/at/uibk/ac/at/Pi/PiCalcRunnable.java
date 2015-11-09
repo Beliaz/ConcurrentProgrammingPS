@@ -22,7 +22,7 @@ class PiCalcRunnable implements Runnable
         for(int n = start; n < (start + num); n++)
         {
             int sign = (int)Math.pow(-1, n);
-            Double summand = sign * 1.0 / (2.0 * n + 1.0);
+            double summand = sign * 1.0 / (2.0 * n + 1.0);
             sum = sum.add(new BigDecimal(summand));
         }
 

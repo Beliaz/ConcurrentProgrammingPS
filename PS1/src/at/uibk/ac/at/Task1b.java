@@ -8,25 +8,16 @@ public class Task1b {
     {
         int count = 0;
 
-        try
-        {
-            while(true) {
-                new Thread(()->{
-                    try {
-                        Thread.sleep(10000);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                }).start();
+        while(true) {
+            new Thread(()->{
+                try {
+                    Thread.sleep(10000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }).start();
 
-                count++;
-            }
+            System.out.println("Thread count: " + ++count);
         }
-        catch(Exception e)
-        {
-            e.printStackTrace();
-        }
-
-        System.out.println("Thread count: " + count);
     }
 }

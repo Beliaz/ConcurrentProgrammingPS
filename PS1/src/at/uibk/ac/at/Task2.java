@@ -31,6 +31,6 @@ public class Task2 {
         }
 
         System.out.println();
-        System.out.println("fastest: " + times.firstKey() + "(" + times.get(times.firstKey()) + " Threads)");
+        System.out.format("fastest: %.2f (%d Threads)", times.firstKey(), times.get(times.firstKey()));
     }
 }
