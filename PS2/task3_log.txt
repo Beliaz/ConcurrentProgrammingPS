@@ -1,0 +1,14 @@
+uibk.ac.at.Task3.LazyInitRaceCondition
+Thread[0] hash: 25034647
+Thread[2] hash: 28476288
+Thread[1] hash: 9175808
+
+uibk.ac.at.Task3.LazyInitSynchronized
+Thread[0] hash: 26100313
+Thread[1] hash: 26100313
+Thread[2] hash: 26100313
+
+uibk.ac.at.Task3.LazyInitAtomic
+Thread[0] hash: 27934853
+Thread[1] hash: 27934853
+Thread[2] hash: 27934853
