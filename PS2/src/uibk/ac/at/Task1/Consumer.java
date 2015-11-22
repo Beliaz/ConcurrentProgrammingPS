@@ -26,7 +26,7 @@ public class Consumer extends Thread
             {
                 try
                 {
-                    valuePairs.add(new Pair(producer, producer.consume()));
+                    valuePairs.add(new Pair<>(producer, producer.consume()));
                 }
                 catch (InterruptedException e)
                 {

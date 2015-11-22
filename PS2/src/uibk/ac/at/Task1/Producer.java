@@ -25,7 +25,6 @@ public class Producer extends Thread
         super();
         mRand = new Random();
         mBuffer = new Buffer();
-        mWaitingConsumers = new LinkedList<Consumer>();
         mName = name;
     }
 
