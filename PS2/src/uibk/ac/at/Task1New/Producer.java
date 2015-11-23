@@ -26,9 +26,9 @@ public class Producer implements Runnable
     private final Queue<Offer> offers = new LinkedList<>();
     private final Random random = new Random();
 
-    private final int maxItemCount = 10;
-    private final int maxValue = 3;
-    private final int maxSleepTime = 3000;
+    private static final int maxItemCount = 10;
+    private static final int maxValue = 3;
+    private static final int maxSleepTime = 3000;
 
     Producer(String name)
     {
@@ -53,7 +53,7 @@ public class Producer implements Runnable
 
         if(targetOffer != null)
         {
-            synchronized (targetOffer)
+            synchronized (targetOffer.getGoods())
             {
                 return targetOffer.getGoods().remove();
             }
@@ -107,11 +107,16 @@ public class Producer implements Runnable
 
     public void unregister(Broker broker)
     {
-        List<Offer> toRemove = new LinkedList<>();
         synchronized (offers)
         {
-            offers.stream().filter(offer -> offer.getBroker().equals(broker)).forEach(toRemove::add);
-            toRemove.forEach(offers::remove);
+            Iterator<Offer> it = offers.iterator();
+            while(it.hasNext())
+            {
+                if(it.next().getBroker().equals(broker))
+                {
+                    it.remove();
+                }
+            }
         }
     }
 

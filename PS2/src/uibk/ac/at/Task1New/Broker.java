@@ -4,14 +4,14 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.atomic.AtomicInteger;
+
 
 /**
  * Created by flori on 22.11.2015.
  */
 public class Broker
 {
-    private Map<Producer, Integer> producers = new HashMap<>();;
+    private Map<Producer, Integer> producers = new HashMap<>();
     private Consumer consumer;
 
     public Broker(Consumer consumer)
@@ -27,12 +27,15 @@ public class Broker
 
     public synchronized void offer(Producer producer)
     {
-        int offers = producers.get(producer);
-        producers.put(producer, ++offers);
+        Integer offers = producers.get(producer);
+        if(offers != null)
+        {
+            producers.put(producer, ++offers);
 
-        System.out.format("[Broker] for %s: received offer from %s\n", consumer.getName(), producer.getName());
+            System.out.format("[Broker] for %s: received offer from %s\n", consumer.getName(), producer.getName());
 
-        notifyAll();
+            notifyAll();
+        }
     }
 
     public synchronized boolean demand()
