@@ -7,10 +7,10 @@ class Offer
     private final Broker broker;
     private final Queue<Integer> buffer;
 
-    public Offer(Broker broker, Queue<Integer> buffer)
+    public Offer(Broker broker)
     {
         this.broker = broker;
-        this.buffer = buffer;
+        this.buffer = new LinkedList<>();
     }
 
     public Broker getBroker() { return broker; }
@@ -25,7 +25,10 @@ public class Producer implements Runnable
     private final String name;
     private final Queue<Offer> offers = new LinkedList<>();
     private final Random random = new Random();
+
     private final int maxItemCount = 10;
+    private final int maxValue = 3;
+    private final int maxSleepTime = 3000;
 
     Producer(String name)
     {
@@ -65,11 +68,12 @@ public class Producer implements Runnable
         synchronized (offers)
         {
             offer = offers.remove();
+            offers.add(offer);
         }
 
         if(offer.getGoods().size() > maxItemCount) return false;
 
-        Integer value = random.nextInt(10);
+        Integer value = random.nextInt(maxValue);
 
         System.out.format("[Producer] %s: produced %d\n", getName(), value);
 
@@ -79,17 +83,13 @@ public class Producer implements Runnable
             offer.getBroker().offer(this);
         }
 
-        synchronized (offers) {
-            offers.add(offer);
-        }
-
         return true;
     }
 
     private void sleep() throws InterruptedException
     {
         //wait up to 3 Seconds
-        int sleepTime = random.nextInt(3000);
+        int sleepTime = random.nextInt(maxSleepTime);
         System.out.format("[Producer] %s: waiting %.3f seconds\n", getName(), sleepTime / 1000.0);
         Thread.sleep(sleepTime);
     }
@@ -101,7 +101,7 @@ public class Producer implements Runnable
     public void registerBroker(Broker broker)
     {
         synchronized (offers) {
-            offers.add(new Offer(broker, new LinkedList<Integer>()));
+            offers.add(new Offer(broker));
         }
     }
 
