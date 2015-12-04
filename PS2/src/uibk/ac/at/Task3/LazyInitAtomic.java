@@ -13,7 +13,6 @@ public class LazyInitAtomic implements LazyInit
     public ExpensiveObject getInstance()
     {
         instance.compareAndSet(null, new ExpensiveObject());
-
         return instance.get();
     }
 }

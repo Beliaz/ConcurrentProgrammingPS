@@ -114,18 +114,23 @@ class Process extends Thread{
 
         if (pid==0) {
 
-            try {
+            try
+            {
                 latch.await();
-            } catch (InterruptedException e) {
+            }
+            catch (InterruptedException e) {
                 e.printStackTrace();
             }
 
             // p0 sends the reference vector to the others
             p[pid] = (Process)this;
             for (int i=1; i<p.length; i++) {
-                try {
+                try
+                {
                     p[i].neighbours(p);
-                } catch (Exception e) {
+                }
+                catch (Exception e)
+                {
                     System.err.println("init exception:");
                     e.printStackTrace();
                 }
@@ -142,7 +147,10 @@ class Process extends Thread{
                     {
                         this.wait();
                     }
-                    catch (InterruptedException e) {}
+                    catch (InterruptedException e)
+                    {
+                        e.printStackTrace();
+                    }
                 }
             }
         }
@@ -152,7 +160,9 @@ class Process extends Thread{
             if (i!=pid)  {
                 try {
                     p[i].sendMessage("hello p" + i + ", this is p" + pid, pid);
-                } catch (Exception e) {
+                }
+                catch (Exception e)
+                {
                     System.err.println("send exception:");
                 }
                 System.out.format("p%d sent hello to p%d\n", pid, i);
@@ -160,9 +170,11 @@ class Process extends Thread{
         }
 
         // receive message from every other one
-        for (int i=p.length-1; i>=0; i--) {
+        for (int i=p.length-1; i>=0; i--)
+        {
             // for (int i=0; i<p.length; i++) {
-            if (i!=pid)  {
+            if (i!=pid)
+            {
                 System.out.format("p%d receiving from p%d\n", pid, i);
                 m = receiveMessage(i);
                 System.out.format("p%d received from p%d: %s\n", pid, i, m);
