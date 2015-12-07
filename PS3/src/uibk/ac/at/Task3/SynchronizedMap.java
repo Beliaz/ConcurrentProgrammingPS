@@ -1,4 +1,4 @@
-package at.uibk.ac.at.Task3;
+package uibk.ac.at.Task3;
 
 import java.util.AbstractMap;
 import java.util.Set;

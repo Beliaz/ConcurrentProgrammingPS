@@ -1,10 +1,9 @@
-package at.uibk.ac.at.Task3;
+package uibk.ac.at.Task3;
 
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class Main {
 
@@ -16,9 +15,9 @@ public class Main {
         private int inserts;
         private int contains;
         private int removes;
-        private float elapsed;
+        private float accessesPerSecond;
 
-        public Measurement(String mapType, int threadCount, int accessCount, int inserts, int contains, int removes, float elapsed)
+        public Measurement(String mapType, int threadCount, int accessCount, int inserts, int contains, int removes, float accessesPerSecond)
         {
             this.mapType = mapType;
             this.threadCount = threadCount;
@@ -26,7 +25,7 @@ public class Main {
             this.inserts = inserts;
             this.contains = contains;
             this.removes = removes;
-            this.elapsed = elapsed;
+            this.accessesPerSecond = accessesPerSecond;
         }
 
         public String getMapType() {
@@ -53,8 +52,8 @@ public class Main {
             return removes;
         }
 
-        public float getElapsed() {
-            return elapsed;
+        public float getAccessesPerSecond() {
+            return accessesPerSecond;
         }
     }
 
@@ -102,7 +101,7 @@ public class Main {
             }
         }
 
-        float elapsed = TimeUnit.NANOSECONDS.toMillis(System.nanoTime() - start);
+        float elapsed = (System.nanoTime() - start) / 1e9f;
 
         return new Measurement(map.getClass().toString(),
                                threadCount,
@@ -110,7 +109,7 @@ public class Main {
                                inserts,
                                contains,
                                removes,
-                               elapsed);
+                               accessCount / elapsed);
     }
 
     private static void doTests(int inserts, int contains, int removes)
@@ -155,6 +154,10 @@ public class Main {
         final int maxAccessCountStringLength = accessCounts.get(accessCounts.size() - 1).toString().length();
 
 
+        System.out.format("insertions: %d\n", inserts);
+        System.out.format("reads: %d\n", contains);
+        System.out.format("deletions: %d\n\n", removes);
+
         for(int i = 0; i < maps.size(); i++)
         {
             System.out.format("%c := %s\n", (char)((int)('A') + i), maps.get(i).getClass().toString());
@@ -167,7 +170,7 @@ public class Main {
 
         for(int i = 0; i < maps.size(); i++)
         {
-            System.out.format("|  %c  ", (char)((int)('A') + i));
+            System.out.format("|    %c     ", (char)((int)('A') + i));
         }
 
         System.out.println();
@@ -198,7 +201,7 @@ public class Main {
                                         m.getAccessCount() == accessCount;
                             }).forEach(
                             m -> {
-                                System.out.format("| %.2f ", m.getElapsed());
+                                System.out.format("| %.2e ", m.getAccessesPerSecond());
                             });
                 }
 
@@ -215,5 +218,6 @@ public class Main {
 
         doTests(50, 25, 25);
         doTests(80, 15, 5);
+        doTests(5, 90, 5);
     }
 }
