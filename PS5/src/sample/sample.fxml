@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+
+<BorderPane fx:controller="sample.Controller"
+          xmlns:fx="http://javafx.com/fxml"
+          styleClass="root">
+
+    <padding><Insets top="25" right="25" bottom="10" left="25"/></padding>
+
+    <top>
+        <HBox alignment="CENTER">
+            <Text id="welcome-text" text="FANCY DOWNLOADER"></Text>
+        </HBox>
+    </top>
+
+
+    <center>
+        <VBox alignment="CENTER">
+            <HBox alignment="CENTER"  spacing="5">
+                <Label text="URL" style="-fx-font-size: 30px;"/>
+                <TextField prefWidth="400.0" fx:id="txtUrl"/>
+            </HBox>
+
+            <HBox alignment="CENTER">
+                <Label text="" fx:id="lblError"/>
+            </HBox>
+            <HBox alignment="CENTER">
+                <Label text="" fx:id="lblFileInfo"/>
+            </HBox>
+            <HBox alignment="CENTER">
+                <ProgressBar fx:id="progressBar" prefHeight="20" prefWidth="600" progress="0.0" visible="false"/>
+            </HBox>
+        </VBox>
+
+    </center>
+
+    <bottom>
+        <HBox alignment="CENTER_RIGHT" spacing="490">
+            <Button text="Close" visible="true" onAction="#onClose"/>
+            <Button fx:id="cmdDownload" text="Download" visible="true" onAction="#onDownloadAction"/>
+        </HBox>
+    </bottom>
+
+    <stylesheets>
+        <URL value="@style.css" />
+    </stylesheets>
+
+</BorderPane>

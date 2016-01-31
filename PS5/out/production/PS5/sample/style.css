@@ -1,0 +1,39 @@
+root {
+    display: block;
+}
+.root {
+-fx-background-color: #3C3F41;
+}
+
+.label {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #D6D6D6;
+}
+
+#welcome-text {
+   -fx-font-size: 32px;
+   -fx-font-family: "Arial Black";
+   -fx-fill: #FFCD28;
+   -fx-effect: innershadow( three-pass-box , rgba(0,0,0,0.7) , 6, 0.0 , 0 , 2 );
+}
+#actiontarget {
+  -fx-fill: FIREBRICK;
+  -fx-font-weight: bold;
+  -fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );
+}
+
+.button {
+    -fx-font-size: 16px;
+    -fx-font-weight: 100;
+    -fx-text-fill: #D6D6D6;
+    -fx-font-family: "Arial light";
+    -fx-border-color: #D6D6D6;
+    -fx-background-color: rgba(0, 0, 0, 0.0);;
+}
+
+.close-button {
+  -fx-graphic: url('http://iconshow.me/media/images/ui/ios7-icons/png/32/close.png');
+  -fx-background-repeat: no-repeat;
+  -fx-background-position: center;
+}
